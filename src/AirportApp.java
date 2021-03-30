@@ -6,11 +6,16 @@ public class AirportApp {
      * Usage: java AirportApp --iata code | --name "Airport Name" | --city "City"
      * @param args
      */
-    public static void main(String args[]){
+    public static void main(String args[]) throws AirportException{
 
         // TODO: Surround this code with a try catch that handles the AirportException thrown
         // by the AirportApp constructor.
-        AirportApp aa = new AirportApp(args);
+
+        try {
+            AirportApp aa = new AirportApp (args);
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
 
     /**
@@ -18,7 +23,7 @@ public class AirportApp {
      * search methods return false
      * @param args
      */
-    public AirportApp(String args[]) {
+    public AirportApp(String args[]) throws AirportException {
         //                          ^
         // TODO: Modify the signature with "throws AirportException"
         //
@@ -37,6 +42,9 @@ public class AirportApp {
                     // TODO: Change this code so that it throws an AirportException instead of printing the error
                     String message = "No airport found with IATA code " + value;
                     System.out.println(message);
+                    AirportException ex = new AirportException("Some message");
+                    throw ex;
+
                 }
             } else if (cmd.contentEquals("--name")){
                 Airport ap = db.findAirportByName(value);
@@ -46,6 +54,9 @@ public class AirportApp {
                     // TODO: Change this code so that it throws an AirportException instead of printing the error
                     String message = "No airport found with name " + value;
                     System.out.println(message);
+                    AirportException ex = new AirportException("Some message");
+                    throw ex;
+
                 }
             } else if (cmd.contentEquals("--city")){
                 ArrayList<Airport> list = db.findAirportByCity(value);
@@ -55,6 +66,9 @@ public class AirportApp {
                     // TODO: Change this code so that it throws an AirportException instead of printing the error
                     String message = "No airports found for " + value;
                     System.out.println(message);
+                    AirportException ex = new AirportException("Some message");
+                    throw ex;
+
                 }
             }
         } else {
